@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../movie_site"
+		},
+		{
+			"path": "../../Downloads/Starting+Files+-+flask-auth-start"
+		}
+	],
+	"settings": {}
+}

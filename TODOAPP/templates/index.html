@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+  </head>
+  <body style="text-align: center; padding-top: 60px;">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+    <h2>To-Do List</h2>
+    <hr style="width: 80%; margin-left: 10%;">
+    <form action="/add" method="post" style="width: 60%; margin-left: 20%; text-align: left; padding-top: 3%; padding-bottom: 3%;">
+      <div class="mb-3">
+        <label for="formGroupExampleInput" class="form-label">Lütfen başlık giriniz</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Başlık" name="başlık">
+      </div>
+      <div class="mb-3">
+        <label for="formGroupExampleInput2" class="form-label">Lütfen içerik giriniz</label>
+        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="İçerik" name="içerik">
+      </div>
+      <button type="submit" class="btn btn-primary">Ekle</button>
+      <a href="{{ url_for('logout') }}" class="btn btn-danger">Log Out</a>
+    </form>
+    {% if todos != []: %}
+    <table class="table" style="width: 75%; margin-left: 12.5%; ">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Başlık</th>
+            <th scope="col">İçerik</th>
+            <th scope="col">Durum</th>
+            <th scope="col">Tamamla</th>
+            <th scope="col">Sil</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for todo in todos: %}
+              {% if todo.durum == True: %}
+                <tr class="table-success">
+              {% else: %}
+                <tr>
+              {% endif %}
+                  <th scope="row">{{ todo.id }}</th>
+                  <th>{{ todo.baslık }}</th>
+                  <th>{{ todo.icerik }}</th>
+                  {% if todo.durum == False: %}
+                  <th>Tamamlanmadı</th>
+                  {% else: %}
+                  <th>Tamamlandı</th>
+                  {% endif %}
+                  <td><a href="/complete/{{todo.id}}" class="btn btn-success">Tamamla</a></td>
+                  <th><a href="/delete/{{todo.id}}" class="btn btn-danger">Sil</a></th>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    {% else: %}
+    <h2 style="text-align: center;">Lütfen içerik giriniz</h2>
+    {% endif %}
+  </body>
+</html>
